@@ -37,7 +37,7 @@ app.UseFastEndpoints()
    .UseSwaggerGen();
 app.Run();
 
-sealed class EndpointA : EndpointWithoutRequest
+sealed class GetAEndpoint : EndpointWithoutRequest
 {
     public override void Configure()
     {
@@ -49,7 +49,7 @@ sealed class EndpointA : EndpointWithoutRequest
         => Task.CompletedTask;
 }
 
-sealed class EndpointA_V1 : EndpointWithoutRequest
+sealed class GetAEndpoint_V1 : EndpointWithoutRequest
 {
     public override void Configure()
     {
@@ -62,7 +62,7 @@ sealed class EndpointA_V1 : EndpointWithoutRequest
         => Task.CompletedTask;
 }
 
-sealed class EndpointA_V2 : EndpointWithoutRequest
+sealed class GetAEndpoint_V2 : EndpointWithoutRequest
 {
     public override void Configure()
     {
@@ -75,7 +75,7 @@ sealed class EndpointA_V2 : EndpointWithoutRequest
         => Task.CompletedTask;
 }
 
-sealed class EndpointB : EndpointWithoutRequest
+sealed class GetBEndpoint : EndpointWithoutRequest
 {
     public override void Configure()
     {
@@ -87,11 +87,24 @@ sealed class EndpointB : EndpointWithoutRequest
         => Task.CompletedTask;
 }
 
-sealed class EndpointB_V1 : EndpointWithoutRequest
+sealed class GetBEndpoint_V1 : EndpointWithoutRequest
 {
     public override void Configure()
     {
         Get("endpoint-b");
+        AllowAnonymous();
+        Version(1).StartingRelease(2);
+    }
+
+    public override Task HandleAsync(CancellationToken c)
+        => Task.CompletedTask;
+}
+
+sealed class DeleteBEndpoint_V1 : EndpointWithoutRequest
+{
+    public override void Configure()
+    {
+        Delete("endpoint-b");
         AllowAnonymous();
         Version(1).StartingRelease(2);
     }
